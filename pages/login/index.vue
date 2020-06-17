@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import request from '@/utils/request'
+import { login } from '@/api/user'
 
 export default {
   name: 'LoginIndex',
@@ -58,12 +58,8 @@ export default {
   methods: {
     async onSubmit () {
       // 提交表单请求登录
-      const { data } = await request({
-        method: 'POST',
-        url: '/api/users/login',
-        data: {
-          user: this.user
-        }
+      const { data } = await login({
+        user: this.user
       })
 
       console.log(data)
