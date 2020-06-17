@@ -13,8 +13,9 @@
             <!-- Add "active" class when you're on that page" -->
             <!-- <a class="nav-link active" href="">Home</a> -->
             <nuxt-link
-              class="nav-link active"
+              class="nav-link"
               to="/"
+              exact
             >Home</nuxt-link>
           </li>
           <li class="nav-item">
