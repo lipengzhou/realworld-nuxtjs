@@ -57,8 +57,8 @@ export default {
     return {
       user: {
         username: '',
-        email: '',
-        password: ''
+        email: 'lpzmail@163.com',
+        password: '12345678'
       },
       errors: {} // 错误信息
     }
@@ -76,8 +76,9 @@ export default {
             user: this.user
           })
 
-        console.log(data)
+        // console.log(data)
         // TODO: 保存用户的登录状态
+        this.$store.commit('setUser', data.user)
 
         // 跳转到首页
         this.$router.push('/')
