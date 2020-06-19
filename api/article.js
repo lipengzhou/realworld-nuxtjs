@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import { request } from '@/plugins/request'
 
 // 获取公共文章列表
 export const getArticles = params => {
@@ -15,9 +15,9 @@ export const getYourFeedArticles = params => {
     method: 'GET',
     url: '/api/articles/feed',
     params,
-    headers: {
-      // 添加用户身份，数据格式：Token空格Token数据
-      Authorization: `Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NDgxMTYsInVzZXJuYW1lIjoibHB6OTk5IiwiZXhwIjoxNTk3NzQxNTA4fQ.2yO8Fss4hYnvsIN2UYHsutQ1hmYqSSAA-UrIRnP4DOY`
-    }
+    // headers: {
+    //   // 添加用户身份，数据格式：Token空格Token数据
+    //   Authorization: `Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NDgxMTYsInVzZXJuYW1lIjoibHB6OTk5IiwiZXhwIjoxNTk3NzQxNTA4fQ.2yO8Fss4hYnvsIN2UYHsutQ1hmYqSSAA-UrIRnP4DOY`
+    // }
   })
 }
