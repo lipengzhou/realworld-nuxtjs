@@ -45,7 +45,7 @@
                 <nuxt-link
                   class="nav-link"
                   :class="{
-                    active: tab === 'global_feed'
+                    active: tab === 'tag'
                   }"
                   exact
                   :to="{
@@ -126,7 +126,8 @@
                     name: 'home',
                     query: {
                       page: item,
-                      tag: $route.query.tag
+                      tag: $route.query.tag,
+                      tab: tab
                     }
                   }"
                 >{{ item }}</nuxt-link>
@@ -165,7 +166,7 @@
 </template>
 
 <script>
-import { getArticles } from '@/api/article'
+import { getArticles, getYourFeedArticles } from '@/api/article'
 import { getTags } from '@/api/tag'
 import { mapState } from 'vuex'
 
@@ -176,8 +177,13 @@ export default {
     const limit = 20
     const tab = query.tab || 'global_feed'
     const tag = query.tag
+
+    const loadArticles = tab === 'global_feed'
+      ? getArticles
+      : getYourFeedArticles
+
     const [ articleRes, tagRes ] = await Promise.all([
-      getArticles({
+      loadArticles({
         limit,
         offset: (page - 1) * limit,
         tag
@@ -189,13 +195,13 @@ export default {
     const { tags } = tagRes.data
 
     return {
-      articles,
-      articlesCount,
-      tags,
-      limit,
-      page,
-      tab,
-      tag
+      articles, // 文章列表
+      articlesCount, // 文章总数
+      tags, // 标签列表
+      limit, // 每页大小
+      page, // 页码
+      tab, // 选项卡
+      tag // 数据标签
     }
   },
   watchQuery: ['page', 'tag', 'tab'],
