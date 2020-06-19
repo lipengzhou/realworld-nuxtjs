@@ -104,14 +104,12 @@
             <p>Popular Tags</p>
 
             <div class="tag-list">
-              <a href="" class="tag-pill tag-default">programming</a>
-              <a href="" class="tag-pill tag-default">javascript</a>
-              <a href="" class="tag-pill tag-default">emberjs</a>
-              <a href="" class="tag-pill tag-default">angularjs</a>
-              <a href="" class="tag-pill tag-default">react</a>
-              <a href="" class="tag-pill tag-default">mean</a>
-              <a href="" class="tag-pill tag-default">node</a>
-              <a href="" class="tag-pill tag-default">rails</a>
+              <a
+                href=""
+                class="tag-pill tag-default"
+                v-for="item in tags"
+                :key="item"
+              >{{ item }}</a>
             </div>
           </div>
         </div>
@@ -124,6 +122,7 @@
 
 <script>
 import { getArticles } from '@/api/article'
+import { getTags } from '@/api/tag'
 
 export default {
   name: 'HomeIndex',
@@ -134,9 +133,11 @@ export default {
       limit,
       offset: (page - 1) * limit
     })
+    const { data: tagData } = await getTags()
     return {
       articles: data.articles,
       articlesCount: data.articlesCount,
+      tags: tagData.tags,
       limit,
       page
     }
