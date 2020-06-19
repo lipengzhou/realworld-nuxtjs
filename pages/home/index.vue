@@ -14,11 +14,48 @@
         <div class="col-md-9">
           <div class="feed-toggle">
             <ul class="nav nav-pills outline-active">
-              <li class="nav-item">
-                <a class="nav-link disabled" href="">Your Feed</a>
+              <li v-if="user" class="nav-item">
+                <nuxt-link
+                  class="nav-link"
+                  :class="{
+                    active: tab === 'your_feed'
+                  }"
+                  exact
+                  :to="{
+                    name: 'home',
+                    query: {
+                      tab: 'your_feed'
+                    }
+                  }"
+                >Your Feed</nuxt-link>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="">Global Feed</a>
+                <nuxt-link
+                  class="nav-link"
+                  :class="{
+                    active: tab === 'global_feed'
+                  }"
+                  exact
+                  :to="{
+                    name: 'home'
+                  }"
+                >Global Feed</nuxt-link>
+              </li>
+              <li v-if="tag" class="nav-item">
+                <nuxt-link
+                  class="nav-link"
+                  :class="{
+                    active: tab === 'global_feed'
+                  }"
+                  exact
+                  :to="{
+                    name: 'home',
+                    query: {
+                      tab: 'tag',
+                      tag: tag
+                    }
+                  }"
+                ># {{ tag }}</nuxt-link>
               </li>
             </ul>
           </div>
@@ -109,6 +146,7 @@
                 :to="{
                   name: 'home',
                   query: {
+                    tab: 'tag',
                     tag: item
                   }
                 }"
@@ -129,17 +167,20 @@
 <script>
 import { getArticles } from '@/api/article'
 import { getTags } from '@/api/tag'
+import { mapState } from 'vuex'
 
 export default {
   name: 'HomeIndex',
   async asyncData ({ query }) {
     const page = Number.parseInt(query.page|| 1)
     const limit = 20
+    const tab = query.tab || 'global_feed'
+    const tag = query.tag
     const [ articleRes, tagRes ] = await Promise.all([
       getArticles({
         limit,
         offset: (page - 1) * limit,
-        tag: query.tag
+        tag
       }),
       getTags()
     ])
@@ -152,11 +193,14 @@ export default {
       articlesCount,
       tags,
       limit,
-      page
+      page,
+      tab,
+      tag
     }
   },
-  watchQuery: ['page', 'tag'],
+  watchQuery: ['page', 'tag', 'tab'],
   computed: {
+    ...mapState(['user']),
     totalPage () {
       return Math.ceil(this.articlesCount / this.limit)
     }
