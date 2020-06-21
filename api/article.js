@@ -45,3 +45,11 @@ export const getArticle = slug => {
     url: `/api/articles/${slug}`
   })
 }
+
+// 获取文章评论
+export const getComments = slug => {
+  return request({
+    method: 'GET',
+    url: `/api/articles/${slug}/comments`
+  })
+}
