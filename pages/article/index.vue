@@ -97,6 +97,14 @@ export default {
   },
   components: {
     ArticleMeta
+  },
+  head () {
+    return {
+      title: `${this.article.title} - RealWorld`,
+      meta: [
+        { hid: 'description', name: 'description', content: this.article.description }
+      ]
+    }
   }
 }
 </script>
