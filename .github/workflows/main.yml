@@ -1,0 +1,17 @@
+name: GitHub Actions Demo
+on: push:
+  branches:
+    - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - name: Build
+      uses: actions/checkout@master
+    - run: npm install
+    - run: npm run build
+    - run: echo test success
