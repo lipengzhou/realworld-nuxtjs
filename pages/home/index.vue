@@ -3,7 +3,7 @@
 
     <div class="banner">
       <div class="container">
-        <h1 class="logo-font">conduit</h1>
+        <h1 class="logo-font">拉勾教育</h1>
         <p>A place to share your knowledge.</p>
       </div>
     </div>
