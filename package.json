@@ -16,7 +16,7 @@
     "cookieparser": "^0.1.0",
     "dayjs": "^1.8.28",
     "js-cookie": "^2.2.1",
-    "markdown-it": "^11.0.0",
+    "markdown-it": "^12.3.2",
     "nuxt": "^2.12.2"
   }
 }
